@@ -1,4 +1,4 @@
-// Chart params
+// Chart parameters
 var svgWidth = 960;
 var svgHeight = 500;
 
@@ -22,7 +22,7 @@ var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import Data
-var file = "data.csv"
+var file = "https://raw.githubusercontent.com/rebecahassan/d3/master/assets/data/data.csv"
 d3.csv(file).then(successHandle, errorHandle);
 
 function errorHandle(error){
@@ -69,7 +69,7 @@ function successHandle(healthData){
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.obesity))
     .attr("r", "15")
-    .attr("opacity", ".5")
+    .attr("opacity", ".7")
     .classed("stateCircle", true);
     
     // Create Circle Text
@@ -93,7 +93,7 @@ function successHandle(healthData){
     chartGroup.call(toolTip);
 
     // Create event listeners to display and hide tooltips
-    circlesGroup.on("click", function(data){
+    circlesGroup.on("mouseover", function(data){
         toolTip.show(data, event.target)
             .direction("nw");
     }).on("mouseout", function(data, index){
@@ -106,11 +106,11 @@ function successHandle(healthData){
         .attr("y", 0 - margin.left + 40)
         .attr("x", 0 - (height / 2))
         .attr("class", "aText")
-        .text("Lacks Healthcare (%)");
+        .text("Obesity (%)");
 
     chartGroup.append("text")
         .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
         .attr("class", "aText")
-        .text("In Poverty (%)");
+        .text("Poverty (%)");
    
 }
